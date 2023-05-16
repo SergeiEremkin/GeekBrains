@@ -1,7 +1,4 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import seminar_1
 
 
 def print_hi(name):
@@ -10,7 +7,58 @@ def print_hi(name):
 
 
 # Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# if __name__ == '__main__':
+# CHECK_NORMAL_1 = 4
+# CHECK_NORMAL_2 = 100
+# CHECK_NORMAL_3 = 400
+# START_YEAR = 1582
+# result = ''
+# year = int(input('Введите год: '))
+# if year < START_YEAR:
+#     result = 'Вы ввели не верную дату'
+# elif year % CHECK_NORMAL_1:
+#     result = 'Год обычный'
+# elif not year % CHECK_NORMAL_2 :
+#     if not year % CHECK_NORMAL_3:
+#         result = 'Високосный'
+#     else:
+#         result = 'Обычный'
+# else:
+#     result = 'Високосный'
+# print(result)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Пользователь вводит число от 1 до 999. Используя операции с числами сообщите что введено: цифра, двузначное число или трёхзначное число.
+# Для цифры верните её квадрат, например 5 - 25
+# Для двузначного числа произведение цифр, например 30 - 0
+# Для трёхзначного числа его зеркальное отображение, например 520 - 25
+# Если число не из диапазона, запросите новое число
+# Откажитесь от магических чисел
+# В коде должны быть один input и один print
+
+FROM = 1
+TO = 999
+result = None
+while True:
+    number = input(f"Введите число от {FROM} до {TO}: ")
+    if FROM <= int(number) <= TO:
+        match len(number):
+            case 1:
+                result = int(number) ** 2
+            case 2:
+                result = int(number) % 10 * int(number) // 10
+            case 3:
+                result = number[::-1]
+        break
+print(result)
+
+# Нарисовать в консоли ёлку спросив у пользователя количество рядов.
+# Пример результата:
+# Сколько рядов у ёлки?
+#    *
+#    ***
+#   *****
+#  *******
+# *********
+count = int(input("Введите кол-во рядов: "))
+for i in range(1, count + 1):
+    for
