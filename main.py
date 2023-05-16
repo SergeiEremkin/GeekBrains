@@ -59,6 +59,12 @@ print(result)
 #   *****
 #  *******
 # *********
-count = int(input("Введите кол-во рядов: "))
-for i in range(1, count + 1):
-    for
+rows = int(input("Сколько рядов у ёлки? "))
+
+for i in range(1, rows + 1):
+    spaces = " " * (rows - i)
+    stars = "*" * (2 * i - 1)
+    print(spaces + stars)
+
+# Выведите в консоль таблицу умножения от 2х2 до 9х10 как на школьной тетрадке.
+
