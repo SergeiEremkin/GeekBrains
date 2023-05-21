@@ -75,9 +75,9 @@ def guess_number():
     if not is_win:
         print('К сожалению вы проиграли')
 
-#check_triangle(1, 2, 2)
+check_triangle(1, 2, 2)
 print()
-#simple()
+simple()
 print()
 guess_number()
 
