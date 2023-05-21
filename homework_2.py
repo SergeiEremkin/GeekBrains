@@ -1,4 +1,6 @@
-import  fractions
+import fractions
+
+
 # Решить задачи, которые не успели решить на семинаре.
 #
 #
@@ -52,14 +54,14 @@ def reduction_fraction(frac: list[int, int]) -> list[int, int]:
             result = int(frac[0]) / int(frac[1])
     while i <= x:
         if frac[0] % i == 0 and frac[1] % i == 0:
-           frac[0] /= i
-           frac[1] /= i
-           continue
+            frac[0] /= i
+            frac[1] /= i
+            continue
         i += 1
     return [int(frac[0]), int(frac[1])]
 
 
-def sum_fraction(frac_1: list[int, int], frac_2:list[int, int])-> list[int, int]:
+def sum_fraction(frac_1: list[int, int], frac_2: list[int, int]) -> list[int, int]:
     if frac_1[1] == frac_2[1]:
         result = [frac_1[0] + frac_2[0], frac_1[1]]
     else:
@@ -68,7 +70,7 @@ def sum_fraction(frac_1: list[int, int], frac_2:list[int, int])-> list[int, int]
     return result
 
 
-def multy_fraction(frac_1: list[int, int], frac_2:list[int, int])-> list[int, int]:
+def multy_fraction(frac_1: list[int, int], frac_2: list[int, int]) -> list[int, int]:
     return [frac_1[0] * frac_2[0], frac_1[1] * frac_2[1]]
 
 

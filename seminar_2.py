@@ -1,6 +1,7 @@
 from math import pi
 import decimal
 
+
 # Создайте несколько переменных разных типов. Проверьте к какому типу относятся созданные переменные.
 
 # a = 1
@@ -21,13 +22,13 @@ import decimal
 # результат проверки на строку только если он положительный
 # *Добавьте в список повторяющиеся элементы и сравните на результаты
 
-# data = [a, b, c, d, 1, 'строка']
-# for i, el in enumerate(data, start=1):
-#     print(i, el, id(el), el.__sizeof__(), hash(el))
-#     if isinstance(el, int):
-#         print('Это целое число')
-#     elif isinstance(el, str):
-#         print('Это строка')
+data = [a, b, c, d, 1, 'строка']
+for i, el in enumerate(data, start=1):
+    print(i, el, id(el), el.__sizeof__(), hash(el))
+    if isinstance(el, int):
+        print('Это целое число')
+    elif isinstance(el, str):
+        print('Это строка')
 
 
 # Напишите программу, которая получает целое число и возвращает его двоичное, восьмеричное строковое представление.
@@ -75,35 +76,36 @@ def circle(d: decimal) -> tuple[decimal, decimal]:
     decimal.getcontext().prec = 42
     _pi = decimal.Decimal(pi)
     if d <= 1000:
-        s = (_pi * d**2) / 4
+        s = (_pi * d ** 2) / 4
         l = _pi * d
 
     return decimal.Decimal(s), decimal.Decimal(l)
+
 
 # 5) Напишите программу, которая решает квадратные уравнения даже если дискриминант отрицательный.
 # Используйте комплексные числа для извлечения квадратного корня.
 
 
-# def quadratic_equation():
-#     print('Решаем уравнение a•x²+b•x+c=0')
-#     a = input('Введите значение a: ')
-#     b = input('Введите значение b: ')
-#     c = input('Введите значение c: ')
-#     a = float(a)
-#     b = float(b)
-#     c = float(c)
-#     discriminant = b ** 2 - 4 * a * c
-#     print('Дискриминант = ' + str(discriminant))
-#     if discriminant == 0:
-#         x = -b / (2 * a)
-#         print('x = ' + str(x))
-#     else:
-#         x1 = (-b + discriminant ** 0.5) / (2 * a)
-#         x2 = (-b - discriminant ** 0.5) / (2 * a)
-#         print('x₁ = ' + str(x1))
-#         print('x₂ = ' + str(x2))
+def quadratic_equation():
+    print('Решаем уравнение a•x²+b•x+c=0')
+    a = input('Введите значение a: ')
+    b = input('Введите значение b: ')
+    c = input('Введите значение c: ')
+    a = float(a)
+    b = float(b)
+    c = float(c)
+    discriminant = b ** 2 - 4 * a * c
+    print('Дискриминант = ' + str(discriminant))
+    if discriminant == 0:
+        x = -b / (2 * a)
+        print('x = ' + str(x))
+    else:
+        x1 = (-b + discriminant ** 0.5) / (2 * a)
+        x2 = (-b - discriminant ** 0.5) / (2 * a)
+        print('x₁ = ' + str(x1))
+        print('x₂ = ' + str(x2))
 
-#quadratic_equation()
+quadratic_equation()
 
 # 6) Напишите программу банкомат.
 # Начальная сумма равна нулю
@@ -117,9 +119,9 @@ def circle(d: decimal) -> tuple[decimal, decimal]:
 
 
 class Bank:
-
     _BALANCE = 0
     _MIN = 50
+    _MAX = 5000000
     _COMMISSION = 0.015
     _BONUS = 0.03
     _TAX = 0.10
@@ -128,17 +130,17 @@ class Bank:
     def __init__(self):
         self._OPERATION = 0
 
-    def _in(self, cash: int) -> tuple[int, int] | None:
+    def _in(self, cash: int, tax: int) -> tuple[int, int] | None:
         if cash % self._MIN == 0:
-            self._BALANCE += cash
+            self._BALANCE += cash + tax
             self._OPERATION += 1
             return self._BALANCE, self._OPERATION
         else:
             return None
 
-    def _out(self, cash: int, commission: int) -> tuple[int, int] | None:
-        if cash % self._MIN == 0 and self._BALANCE > 0 and self._BALANCE - (cash + commission) >= 0:
-            self._BALANCE -= cash
+    def _out(self, cash: int, commission: int, tax: int) -> tuple[int, int] | None:
+        if cash % self._MIN == 0 and self._BALANCE > 0 and self._BALANCE - (cash + commission + tax) >= 0:
+            self._BALANCE -= cash + commission + tax
             self._OPERATION += 1
             return self._BALANCE, self._OPERATION
         else:
@@ -146,53 +148,45 @@ class Bank:
 
     def _check_commission(self, cash: int) -> int:
         sum_commission = cash * self._COMMISSION
-
         _MAX = 600
         _MIN = 30
-
         if sum_commission > _MAX:
-            return _MAX
+            sum_commission = _MAX
         elif sum_commission < _MIN:
-            return _MIN
+            sum_commission = _MIN
         else:
-            return int(sum_commission)
+            sum_commission = int(sum_commission)
+        return sum_commission
 
-    def _check_operation(self):
-        return (False, True)[self._OPERATION % 3]
-
-    def _check_tax(self):
-        _MAX = 5_000_000
-        return (False, True)[self._BALANCE >= _MAX]
+    def _check_tax(self, cash: int) -> int:
+        if cash >=self._MAX:
+            print(f'\nВнимание был снят налог на богатство в размере {cash * self._TAX}')
+            return cash * self._TAX
+        else:
+            return 0
 
     def _exit(self):
         return "Всего доброго, приходите к нам еще"
 
-    def start(self, mode: str, cash: int = 0) -> str:
-
-        check_operation = self._check_operation()
-        check_tax = self._check_tax()
-
-        if check_operation:
+    def add_bonus(self):
             self._BALANCE += self._BALANCE * self._BONUS
+            return f'Поздравляем, вы получили бонус за каждую 3-юю операцию в нашем банке . ' \
+                   f'На ваш счет было зачислено: {int(self._BALANCE * self._BONUS)}\n'
 
-        elif check_tax:
-            self._BALANCE -= self._BALANCE * self._TAX
-
+    def start(self, mode: str, cash: int = 0) -> str:
+        if self._OPERATION % 3 == 0:
+             print(self.add_bonus())
+        tax = self._check_tax(cash)
         match mode:
             case "in":
-                data = self._in(cash=cash)
-
-                com_data = self._check_commission(cash=cash)
-
-                return f"Средства были зачислены сумма: {cash}, баланс: {self._BALANCE}"
-
+                self._in(cash=cash, tax=tax)
+                return f"Средства были зачислены сумма: {cash}, баланс: {int(self._BALANCE)}"
             case "out":
-                com_data = self._check_commission(cash=cash)
-
-                data = self._out(cash=cash, commission=com_data)
-
+                commission = self._check_commission(cash=cash)
+                data = self._out(cash=cash, commission=commission, tax=tax)
                 if data:
-                    return f"Операция осуществлена успешно, сумма: {cash}, коммисия: {com_data}, баланс: {self._BALANCE}"
+                    return f"Операция осуществлена успешно, сумма: {cash}, коммисия: {commission}, " \
+                           f"баланс: {int(self._BALANCE)}"
                 else:
                     return "Нехватает средств"
 
@@ -200,5 +194,10 @@ class Bank:
                 return self._exit()
 
 bank = Bank()
-print(bank.start(mode='in', cash=5_000_001))
-
+print(bank.start(mode='in', cash=4000000))
+print(bank.start(mode='in', cash=100000))
+print(bank.start(mode='out', cash=100000))
+print(bank.start(mode='in', cash=100000))
+print(bank.start(mode='in', cash=1000000))
+print(bank.start(mode='in', cash=2000000))
+print(bank.start(mode='out', cash=5000000))
