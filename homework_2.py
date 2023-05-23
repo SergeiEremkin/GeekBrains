@@ -21,6 +21,19 @@ def convert_number(num: int, mode: str) -> str:
             convert = 16
     while num >= 1:
         res = num % convert
+        if convert == 16:
+            if res == 10:
+                res = 'a'
+            if res == 11:
+                res = 'b'
+            if res == 12:
+                res = 'c'
+            if res == 13:
+                res = 'd'
+            if res == 14:
+                res = 'e'
+            if res == 15:
+                res = 'f'
         result += str(res)
         num = num // convert
     return result[::-1]
@@ -28,7 +41,7 @@ def convert_number(num: int, mode: str) -> str:
 
 print(convert_number(21, mode="bin"), f"assert: {bin(21)}")
 print(convert_number(21, mode="oct"), f"assert: {oct(21)}")
-print(convert_number(21, mode="hex"), f"assert: {hex(21)}")
+print(convert_number(1200, mode="hex"), f"assert: {hex(1200)}")
 
 
 # Напишите программу, которая принимает две строки вида “a/b” - дробь с числителем и знаменателем.
