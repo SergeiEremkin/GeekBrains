@@ -22,13 +22,13 @@ import decimal
 # результат проверки на строку только если он положительный
 # *Добавьте в список повторяющиеся элементы и сравните на результаты
 
-data = [a, b, c, d, 1, 'строка']
-for i, el in enumerate(data, start=1):
-    print(i, el, id(el), el.__sizeof__(), hash(el))
-    if isinstance(el, int):
-        print('Это целое число')
-    elif isinstance(el, str):
-        print('Это строка')
+# data = [a, b, c, d, 1, 'строка']
+# for i, el in enumerate(data, start=1):
+#     print(i, el, id(el), el.__sizeof__(), hash(el))
+#     if isinstance(el, int):
+#         print('Это целое число')
+#     elif isinstance(el, str):
+#         print('Это строка')
 
 
 # Напишите программу, которая получает целое число и возвращает его двоичное, восьмеричное строковое представление.
@@ -39,27 +39,27 @@ for i, el in enumerate(data, start=1):
 # Избегайте магических чисел
 # Добавьте аннотацию типов где это возможно
 
-def task3(num: int, mode: str) -> str:
-    result = ''
-    convert: int = 2
-
-    match mode:
-        case "bin":
-            convert = 2
-        case "oct":
-            convert = 8
-
-    while num >= 1:
-        res = num % convert
-
-        result += str(res)
-        num = num // convert
-
-    return result[::-1]
-
-
-print(task3(21, mode="bin"), f"assert: {bin(21)}")
-print(task3(21, mode="oct"), f"assert: {oct(21)}")
+# def task3(num: int, mode: str) -> str:
+#     result = ''
+#     convert: int = 2
+#
+#     match mode:
+#         case "bin":
+#             convert = 2
+#         case "oct":
+#             convert = 8
+#
+#     while num >= 1:
+#         res = num % convert
+#
+#         result += str(res)
+#         num = num // convert
+#
+#     return result[::-1]
+#
+#
+# print(task3(21, mode="bin"), f"assert: {bin(21)}")
+# print(task3(21, mode="oct"), f"assert: {oct(21)}")
 
 
 # Задание №4
@@ -72,40 +72,40 @@ print(task3(21, mode="oct"), f"assert: {oct(21)}")
 # не менее 42 знаков после запятой.
 
 
-def circle(d: decimal) -> tuple[decimal, decimal]:
-    decimal.getcontext().prec = 42
-    _pi = decimal.Decimal(pi)
-    if d <= 1000:
-        s = (_pi * d ** 2) / 4
-        l = _pi * d
-
-    return decimal.Decimal(s), decimal.Decimal(l)
+# def circle(d: decimal) -> tuple[decimal, decimal]:
+#     decimal.getcontext().prec = 42
+#     _pi = decimal.Decimal(pi)
+#     if d <= 1000:
+#         s = (_pi * d ** 2) / 4
+#         l = _pi * d
+#
+#     return decimal.Decimal(s), decimal.Decimal(l)
 
 
 # 5) Напишите программу, которая решает квадратные уравнения даже если дискриминант отрицательный.
 # Используйте комплексные числа для извлечения квадратного корня.
 
 
-def quadratic_equation():
-    print('Решаем уравнение a•x²+b•x+c=0')
-    a = input('Введите значение a: ')
-    b = input('Введите значение b: ')
-    c = input('Введите значение c: ')
-    a = float(a)
-    b = float(b)
-    c = float(c)
-    discriminant = b ** 2 - 4 * a * c
-    print('Дискриминант = ' + str(discriminant))
-    if discriminant == 0:
-        x = -b / (2 * a)
-        print('x = ' + str(x))
-    else:
-        x1 = (-b + discriminant ** 0.5) / (2 * a)
-        x2 = (-b - discriminant ** 0.5) / (2 * a)
-        print('x₁ = ' + str(x1))
-        print('x₂ = ' + str(x2))
-
-quadratic_equation()
+# def quadratic_equation():
+#     print('Решаем уравнение a•x²+b•x+c=0')
+#     a = input('Введите значение a: ')
+#     b = input('Введите значение b: ')
+#     c = input('Введите значение c: ')
+#     a = float(a)
+#     b = float(b)
+#     c = float(c)
+#     discriminant = b ** 2 - 4 * a * c
+#     print('Дискриминант = ' + str(discriminant))
+#     if discriminant == 0:
+#         x = -b / (2 * a)
+#         print('x = ' + str(x))
+#     else:
+#         x1 = (-b + discriminant ** 0.5) / (2 * a)
+#         x2 = (-b - discriminant ** 0.5) / (2 * a)
+#         print('x₁ = ' + str(x1))
+#         print('x₂ = ' + str(x2))
+#
+# quadratic_equation()
 
 # 6) Напишите программу банкомат.
 # Начальная сумма равна нулю
@@ -126,14 +126,17 @@ class Bank:
     _BONUS = 0.03
     _TAX = 0.10
     _OPERATION: int
+    _OPERATIONS: list[str]
 
     def __init__(self):
         self._OPERATION = 0
+        self._OPERATIONS = dict()
 
     def _in(self, cash: int, tax: int) -> tuple[int, int] | None:
         if cash % self._MIN == 0:
             self._BALANCE += cash + tax
             self._OPERATION += 1
+            self._OPERATIONS[f'+ {cash + tax}'] = 'Пополнение'
             return self._BALANCE, self._OPERATION
         else:
             return None
@@ -142,6 +145,7 @@ class Bank:
         if cash % self._MIN == 0 and self._BALANCE > 0 and self._BALANCE - (cash + commission + tax) >= 0:
             self._BALANCE -= cash + commission + tax
             self._OPERATION += 1
+            self._OPERATIONS[f'- {cash + commission + tax}'] = 'Снятие'
             return self._BALANCE, self._OPERATION
         else:
             return None
@@ -173,6 +177,10 @@ class Bank:
             return f'Поздравляем, вы получили бонус за каждую 3-юю операцию в нашем банке . ' \
                    f'На ваш счет было зачислено: {int(self._BALANCE * self._BONUS)}\n'
 
+    def _show_operations(self) -> None:
+        for summ, op in self._OPERATIONS.items():
+            print(f'{summ} - {op}')
+
     def start(self, mode: str, cash: int = 0) -> str:
         if self._OPERATION % 3 == 0:
              print(self.add_bonus())
@@ -190,8 +198,12 @@ class Bank:
                 else:
                     return "Нехватает средств"
 
+            case "show":
+                self._show_operations()
+
             case "exit":
                 return self._exit()
+
 
 bank = Bank()
 print(bank.start(mode='in', cash=4000000))
@@ -201,3 +213,4 @@ print(bank.start(mode='in', cash=100000))
 print(bank.start(mode='in', cash=1000000))
 print(bank.start(mode='in', cash=2000000))
 print(bank.start(mode='out', cash=5000000))
+print(bank.start(mode='show'))
