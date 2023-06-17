@@ -26,9 +26,9 @@ def deco_json(func: Callable):
     return wrapper
 
 
-
+@deco_json
 def multy(a: int, b: int, *args, **kwargs) -> int:
     return a * b
 
-
-multy(2, 5, temp=2, res=3, c=2, d=5)
+if __name__ == '__main__':
+    multy(2, 5, temp=2, res=3, c=2, d=5)

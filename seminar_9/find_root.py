@@ -58,7 +58,7 @@ def find_root(a: int = 1, b: int = 1, c: int = 1) -> tuple[str, str] | str:
             return str((-b + sqrt(discriminant)) / (2 * a)), str((-b - sqrt(discriminant)) / (2 * a))
 
 
-def generate_numbers() -> None:
+def generate_numbers() -> int:
     MIN_NUM = 1
     MAX_NUM = 9
     MIN_LEN = 1
@@ -86,6 +86,7 @@ def write_csv(file: str) -> None:
         writer = csv.writer(f)
         writer.writerow(['a', 'b', 'c'])
         writer.writerows(list_csv)
+
 
 
 if __name__ == '__main__':
