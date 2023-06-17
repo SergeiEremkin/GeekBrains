@@ -1,0 +1,74 @@
+{
+    "1": {
+        "name": "add_name_to_json.cpython-310.pyc",
+        "parent": "__pycache__",
+        "type": "file",
+        "size": "1757 b"
+    },
+    "2": {
+        "name": "create_json.cpython-310.pyc",
+        "parent": "__pycache__",
+        "type": "file",
+        "size": "729 b"
+    },
+    "3": {
+        "name": "save_file_info.cpython-310.pyc",
+        "parent": "__pycache__",
+        "type": "file",
+        "size": "1818 b"
+    },
+    "4": {
+        "name": "dir_info_csv.csv",
+        "parent": "seminar_8",
+        "type": "file",
+        "size": "664 b"
+    },
+    "5": {
+        "name": "dir_info_json.json",
+        "parent": "seminar_8",
+        "type": "file",
+        "size": "1698 b"
+    },
+    "6": {
+        "name": "dir_info_picle.pickle",
+        "parent": "seminar_8",
+        "type": "file",
+        "size": "730 b"
+    },
+    "7": {
+        "name": "main.py",
+        "parent": "seminar_8",
+        "type": "file",
+        "size": "566 b"
+    },
+    "8": {
+        "name": "result.json",
+        "parent": "seminar_8",
+        "type": "file",
+        "size": "298 b"
+    },
+    "9": {
+        "name": "save_file_info.py",
+        "parent": "seminar_8",
+        "type": "file",
+        "size": "2595 b"
+    },
+    "10": {
+        "name": "test",
+        "parent": "seminar_8",
+        "type": "folder",
+        "size": "0 b"
+    },
+    "11": {
+        "name": "__init__.py",
+        "parent": "seminar_8",
+        "type": "file",
+        "size": "0 b"
+    },
+    "12": {
+        "name": "__pycache__",
+        "parent": "seminar_8",
+        "type": "folder",
+        "size": "4096 b"
+    }
+}
