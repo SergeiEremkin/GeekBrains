@@ -1,6 +1,7 @@
 # Вручную создайте список с целыми числами, которые повторяются.
 # Получите новый список, который содержит уникальные (без повтора) элементы исходного списка.
 # *Подготовьте два решения, короткое и длинное, которое не использует другие коллекции помимо списков
+import unittest
 
 
 # def solution_1(array: list[int]) -> list[int]:
@@ -84,11 +85,21 @@ def task5(array):
     res = []
     for i, elem in enumerate(array, start=1):
         if elem % 2:
-           res.append(i)
+            res.append(i)
     return res
 
-print(task5([2,2,3,4,4,4,5,6,7,7]))
 
+print(task5([2, 2, 3, 4, 4, 4, 5, 6, 7, 7]))
+
+
+class TestMethods(unittest.TestCase):
+
+    def test_task5(self):
+        self.assertEqual(task5([2, 2, 3, 4, 4, 4, 5, 6, 7, 7]), [3, 7, 9, 10])
+
+
+if __name__ == '__main__':
+    unittest.main()
 
 # Пользователь вводит строку текста. Вывести каждое слово с новой строки.
 # Строки нумеруются начиная с единицы
