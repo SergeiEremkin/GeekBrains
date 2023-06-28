@@ -7,7 +7,7 @@
 
 # Доработаем прямоугольник и добавим экономию памяти
 # для хранения свойств экземпляра без словаря __dict__
-
+from seminar_13.custom_errors import SideError
 
 class Rectangle:
     '''Класс прямоугольник, с методами расчета периметра и площади фигуры.'''
@@ -32,14 +32,14 @@ class Rectangle:
         if value > 0:
             self._a = value
         else:
-            raise ValueError('a не может быть отрицательной')
+            raise SideError(value)
 
     @b.setter
     def b(self, value):
         if value > 0:
             self._b = value
         else:
-            raise ValueError('b не может быть отрицательной')
+            raise SideError(value)
 
     def perimeter(self):
         '''Метод расчета периметра прямоугольника.'''
@@ -75,7 +75,7 @@ if __name__ == '__main__':
 
 print(rect_1.b)
 # rect_1.a = -1
-rect_1.a = 10
+rect_1.a = -10
 print(rect_1)
 # print(rect_2)
 # # print(f'{rect.perimeter()= } {rect.area()= }')

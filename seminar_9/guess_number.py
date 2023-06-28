@@ -5,6 +5,8 @@
 from typing import Callable
 
 
+
+
 def two_numbers(count_try: int, num: int) -> Callable[[], None]:
     def random_numbers():
         for i in range(1, count_try + 1):
@@ -17,6 +19,7 @@ def two_numbers(count_try: int, num: int) -> Callable[[], None]:
 
     return random_numbers
 
+if __name__ == '__main__':
 
-res = two_numbers(3, 20)
-res()
+    res = two_numbers(3, 20)
+    res()
