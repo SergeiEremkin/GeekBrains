@@ -1,9 +1,21 @@
+import unittest
+
+import pytest
+
+
 # Дорабатываем класс прямоугольник из прошлого семинара.
 # Добавьте возможность сложения и вычитания.
 # При этом должен создаваться новый экземпляр
 # прямоугольника.
 # Складываем и вычитаем периметры, а не длинну и ширину.
 # При вычитании не допускайте отрицательных значений.
+
+
+# На семинарах по ООП был создан класс прямоугольник
+# хранящий длину и ширину, а также вычисляющую периметр,
+# площадь и позволяющий складывать и вычитать
+# прямоугольники беря за основу периметр.
+# Напишите 3-7 тестов unittest для данного класса.
 
 
 class Rectangle:
@@ -41,13 +53,35 @@ class Rectangle:
         return f'Прямоугольник {self.a} x {self.b}'
 
 
+class TestRectangle(unittest.TestCase):
+
+    def setUp(self) -> Rectangle:
+        self.rectangle_1 = Rectangle(2, 3)
+        self.rectangle_2 = Rectangle(5, 10)
+        self.rectangle_3 = Rectangle(5)
+
+    def test_perimeter(self):
+        self.assertEqual(self.rectangle_1.perimeter(), 10)
+
+    def test_area(self):
+        self.assertEqual(self.rectangle_2.area(), 50)
+
+    def test_sum_rect(self):
+        self.assertEqual((self.rectangle_1 + self.rectangle_2).perimeter(), 40)
+
+    def test_str(self):
+        self.assertEqual(self.rectangle_1.__str__(), 'Прямоугольник 2 x 3')
+
+
 if __name__ == '__main__':
-    rect_1 = Rectangle(2, 5)
-    rect_2 = Rectangle(5, 10)
-    print(rect_2)
-    # print(f'{rect.perimeter()= } {rect.area()= }')
-    # print(f'{rect_1.perimeter()= } {rect_1.area()= }')
-    res_sum = rect_1 + rect_2
-    print(res_sum.a, res_sum.b)
-    res_sub = rect_1 - rect_2
-    print(res_sub.a, res_sub.b)
+    # rect_1 = Rectangle(2, 5)
+    #
+    # rect_2 = Rectangle(5, 10)
+    # print(rect_2)
+    # # print(f'{rect.perimeter()= } {rect.area()= }')
+    # # print(f'{rect_1.perimeter()= } {rect_1.area()= }')
+    # res_sum = rect_1 + rect_2
+    # print(res_sum.a, res_sum.b)
+    # res_sub = rect_1 - rect_2
+    # print(res_sub.a, res_sub.b)
+    unittest.main(verbosity=True)
